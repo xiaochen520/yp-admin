@@ -33,6 +33,22 @@ export function removeOrder(parms = {}) {
   })
 }
 
+export function notice(parms = {}) {
+  return request({
+    url: '/api/notice/get',
+    method: 'get',
+    params: parms
+  })
+}
+
+export function removeNotice(parms) {
+  return request({
+    url: '/api/notice/delete',
+    method: 'get',
+    params: parms
+  })
+}
+
 export function updateOrder(parms) {
   return request({
     url: '/api/shop_zr/update',

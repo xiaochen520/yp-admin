@@ -75,6 +75,17 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/notice',
+    component: Layout,
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/notice/index'),
+        meta: { title: '公告管理'}
+      }
+    ]
+  },
+  {
     path: '/carousel',
     component: Layout,
     children: [
