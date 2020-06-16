@@ -1,11 +1,16 @@
 <template>
   <div class="order">
     <div class="filter">
-      <span>类型：</span>
+      <span>名称：</span>
+      <el-input type="text" style="width: 200px" v-model="query.title"></el-input>
+      <span style="margin-left: 10px">手机号：</span>
+      <el-input type="text" style="width: 200px" v-model="query.mobile"></el-input>
+      <span style="margin-left: 10px">类型：</span>
       <el-select @change="changeTeacher" v-model="filterId" placeholder="请选择教练">
         <el-option v-for="item in teacherArr" :key="item.id" :label="item.label" :value="item.id">
         </el-option>
       </el-select>
+      <el-button style="margin-left: 10px" @click="filterClick" type="primary">搜索</el-button>
       <el-button style="float: right" @click="addOrder" type="primary">添加转铺信息</el-button>
     </div>
     <el-table :loading="isLoad" :data="tbArr" border style="width: 100%">
@@ -52,6 +57,10 @@
   export default {
     data() {
       return {
+        query: {
+          title: "",
+          mobile: ""
+        },
         isLoad: false,
         pageSize: 10,
         page: 1,
@@ -82,6 +91,10 @@
       this.getOrder();
     },
     methods: {
+      filterClick() {
+        this.page = 1;
+        this.getOrder();
+      },
       goEdit(row) {
         let parms = {
           id: row.id,
@@ -152,7 +165,9 @@
         let parms = {
           page: this.page,
           limit: this.pageSize,
-          type: this.filterId
+          type: this.filterId,
+          title: this.query.title,
+          mobile: this.query.mobile
         }
         order(parms).then(res => {
           this.isLoad = false;

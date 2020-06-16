@@ -15,7 +15,7 @@ export const constantRoutes = [
       {
         path: '',
         component: () => import('@/views/shop/index'),
-        meta: { title: '找铺列表'},
+        meta: { title: '找铺列表', icon: 'iconfont iconshop'},
       },
       {
         path: 'add',
@@ -31,7 +31,7 @@ export const constantRoutes = [
     children: [{
       path: '',
       component: () => import('@/views/index/index'),
-      meta: { title: '转铺列表'},
+      meta: { title: '转铺列表', icon: 'iconfont iconsell'},
     },
     {
       path: 'add',
@@ -47,7 +47,7 @@ export const constantRoutes = [
       {
         path: 'list',
         component: () => import('@/views/teacher/index'),
-        meta: { title: '入驻商家'},
+        meta: { title: '入驻商家', icon: 'iconfont iconInto'},
       },
       {
         path: 'add',
@@ -64,7 +64,7 @@ export const constantRoutes = [
       {
         path: 'list',
         component: () => import('@/views/course/index'),
-        meta: { title: '系统设置'},
+        meta: { title: '系统设置', icon: 'iconfont iconsetting'},
       },
       {
         path: 'add',
@@ -81,7 +81,7 @@ export const constantRoutes = [
       {
         path: 'list',
         component: () => import('@/views/notice/index'),
-        meta: { title: '公告管理'}
+        meta: { title: '公告管理', icon: 'iconfont icongonggao'}
       }
     ]
   },
@@ -92,7 +92,7 @@ export const constantRoutes = [
       {
         path: 'list',
         component: () => import('@/views/carousel/index'),
-        meta: { title: '轮播图管理'},
+        meta: { title: '轮播图管理', icon: 'iconfont iconlunbotu1-copy'},
       }
     ]
   },

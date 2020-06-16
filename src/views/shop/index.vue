@@ -2,7 +2,13 @@
   <div class="order">
     <!-- nav -->
     <div class="nav">
-      <el-button @click="addTeach" type="primary">添加求租信息</el-button>
+      <span>名称：</span>
+      <el-input type="text" style="width: 200px" v-model="query.title"></el-input>
+      <span style="margin-left: 10px">手机号：</span>
+      <el-input type="text" style="width: 200px" v-model="query.mobile"></el-input>
+      <el-button style="margin-left: 10px" @click="filterClick" type="primary">搜索</el-button>
+
+      <el-button style="float: right" @click="addTeach" type="primary">添加求租信息</el-button>
     </div>
     <!-- end -->
 
@@ -50,6 +56,10 @@
   export default {
     data() {
       return {
+        query: {
+          title: "",
+          mobile: ""
+        },
         isLoad: false,
         pageSize: 10,
         page: 1,
@@ -64,6 +74,10 @@
       this.getTeacher();
     },
     methods: {
+      filterClick() {
+        this.page = 1;
+        this.getTeacher();
+      },
       addTeach() {
         this.$router.push("/shop/add");
       },
@@ -120,8 +134,9 @@
       getTeacher() {
         this.isLoad = true;
         this.tbArr = [];
+        let params = Object.assign({}, this.query, {page: this.page, limit: this.limit});
 
-        shop({ page: this.page, limit: this.limit })
+        shop(params)
           .then(res => {
             this.isLoad = false;
             if (res.code == 200) {
@@ -142,7 +157,7 @@
   .order {
     padding: 20px;
     .nav {
-      text-align: right;
+      /* text-align: right; */
       padding-bottom: 15px;
     }
     .filter {

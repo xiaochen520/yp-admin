@@ -2,10 +2,12 @@
     <div class="order">
       <div class="filter">
         <span>类型：</span>
-        <el-select @change="changeTeacher" v-model="filterId" placeholder="请选择类型">
+        <el-select style="width: 220px" @change="changeTeacher" v-model="queryType" placeholder="请选择类型">
           <el-option v-for="(value, key) in noticeType" :key="key" :label="value" :value="key">
           </el-option>
         </el-select>
+        <span style="margin-left: 15px">目标id：</span>
+        <el-input style="width: 220px" v-model="filterId"></el-input>
         <el-button style="float: right" @click="addOrder" type="primary">添加公告</el-button>
       </div>
       <el-table :loading="isLoad" :data="tbArr" border style="width: 100%">
@@ -30,36 +32,41 @@
 
       <!-- dialog -->
       <el-dialog :title="modalTitle" :visible.sync="showModal">
-          <el-form :model="form">
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth">
-              <el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
+          <el-form ref="form" :model="modalForm" label-width="80px">
+              <el-form-item label="标题">
+                <el-input style="width: 320px" v-model="modalForm.title"></el-input>
+              </el-form-item>
+              <el-form-item label="目标id">
+                  <el-input style="width: 320px" v-model="modalForm.target_id"></el-input>
+                </el-form-item>
+              <el-form-item label="类型">
+                  <el-select style="width: 320px" v-model="modalForm.type" placeholder="请选择类型">
+                    <el-option v-for="(value, key) in noticeType" :key="key" :label="value" :value="key">
+                    </el-option>
+                  </el-select>
+              </el-form-item>
+            </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button @click="showModal = false">取 消</el-button>
+            <el-button type="primary" @click="conformAdd">确 定</el-button>
           </div>
         </el-dialog>
     </div>
   </template>
   
   <script>
-    import { notice, removeNotice } from '@/api'
+    import { notice, removeNotice, addNotice, editNotice } from '@/api'
   
     export default {
       data() {
         return {
+          showModal: false,
           isLoad: false,
           pageSize: 10,
+          isAdd: true,
           page: 1,
-          filterId: 1, //目标id
-          queryType: 1, //1转让 2招租 3商家
+          filterId: "", //目标id
+          queryType: "1", //1转让 2招租 3商家
           noticeType: {
             1: "转让",
             2: "招租",
@@ -84,30 +91,58 @@
             }
           ],
           total: 0,
-          tbArr: []
+          tbArr: [],
+          modalTitle: "",
+          modalForm: {
+            title: "",
+            target_id: "",
+            type: "1"
+          }
         }
       },
       mounted() {
         this.getOrder();
       },
       methods: {
+        conformAdd() {
+          if(this.isAdd) {
+            addNotice(this.modalForm).then(res => {
+                if (res.code === 200) {
+                  this.$message({
+                    message: "操作成功",
+                    type: "success",
+                    duration: 1500,
+                    onClose: () => {
+                      this.showModal = false;
+                      this.getOrder();
+                    }
+                  });
+                }
+              });
+          } else {
+            editNotice(this.modalForm).then(res => {
+                if (res.code === 200) {
+                  this.$message({
+                    message: "操作成功",
+                    type: "success",
+                    duration: 1500,
+                    onClose: () => {
+                      this.showModal = false;
+                      this.getOrder();
+                    }
+                  });
+                }
+              });
+          }
+        },
         goEdit(row) {
-          let parms = {
-            id: row.id,
-            'title': row.title,
-            'area': row.area,
-            'zj': row.zj,
-            'province': row.province,
-            'city': row.city,
-            'region': row.region,
-            'address_desc': row.address_desc,
-            'name': row.name,
-            'mobile': row.mobile,
-            'content': row.content,
-            'photos': row.photos,
-            'type': row.type
-          };
-          this.$router.push({ path: "/add", query: parms });
+         this.isAdd = false;
+         this.modalTitle = "编辑";
+         this.modalForm.title = row.title;
+         this.modalForm.target_id = row.target_id;
+         this.modalForm.type = row.type;
+         this.showModal = true;
+         this.modalForm.id = row.id;
         },
         removeOrder(row) {
           this.$confirm("将要该条记录？, 是否继续?", "提示", {
@@ -138,7 +173,14 @@
             });
         },
         addOrder() {
-          this.$router.push("/add");
+          this.modalTitle = "新增";
+          this.isAdd = true;
+          this.modalForm = {
+            title: "",
+            target_id: "",
+            type: "1"
+          };
+          this.showModal = true;
         },
         changePage(page) {
           this.page = page;

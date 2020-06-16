@@ -2,11 +2,11 @@
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif" style="width: 38px;height: 46px;" /> -->
+        <img src="../../../assets/images/logo.png" style="width: 38px" />
         <div class="sidebar-title">{{ title }} </div>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif" style="width: 38px;height: 46px;" /> -->
+        <img src="../../../assets/images/logo.png" style="width: 38px; display: inline-block; vertical-align: middle; margin-right: 10px;" />
         <div class="sidebar-title">{{ title }} </div>
       </router-link>
     </transition>

@@ -4,9 +4,12 @@
       <el-form-item label="名称">
         <el-input style="width: 200px" v-model="form.title"></el-input>
       </el-form-item>
-      <el-form-item label="期待区域">
-        <el-input style="width: 200px" v-model="form.region"></el-input>
+      <el-form-item label="地址">
+          <v-distpicker @selected="selectAddr"></v-distpicker>
       </el-form-item>
+      <el-form-item label="详细地址" prop="address_desc">
+          <el-input type="text" style="width: 200px" v-model="form.address_desc"></el-input>
+        </el-form-item>
       <el-form-item label="所属行业">
         <el-select style="width: 200px" v-model="form.industry" placeholder="请选择">
           <el-option
@@ -60,6 +63,9 @@ export default {
       industryArr: industryArr,
       form: {
         title: "",
+        province: "",
+        city: "", 
+        address_desc: "",
         region: "",
         industry: "",
         min_area: 0,
@@ -83,7 +89,9 @@ export default {
   },
   methods: {
     selectAddr(res) {
-      this.form.address = res.province.value + res.city.value + res.area.value;
+      this.form.province = res.province.value;
+      this.form.city = res.city.value;
+      this.form.region = res.area.value;
     },
     onSubmit() {
       this.saveLoad = true;

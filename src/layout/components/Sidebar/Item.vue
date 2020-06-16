@@ -15,9 +15,13 @@ export default {
   render(h, context) {
     const { icon, title } = context.props
     const vnodes = []
+    const iconStyle = {
+      marginRight: "10px",
+      fontWeight: "600"
+    }
 
     if (icon) {
-      vnodes.push(<i class={icon}/>)
+      vnodes.push(<i style={iconStyle} class={icon}/>)
     }
 
     if (title) {

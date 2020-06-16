@@ -78,7 +78,7 @@ export const transferType = [
         id: 1
     },
     {
-        name: "工厂仓库招租",
+        name: "工厂仓库",
         id: 2
     },
     {

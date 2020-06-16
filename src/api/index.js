@@ -16,6 +16,13 @@ export function order(parms = {}) {
   })
 }
 
+export function editNotice(parms) {
+  return request({
+    url: '/api/notice/update',
+    method: 'post',
+    params: parms
+  })
+}
 
 export function addOrder(parms) {
   return request({
@@ -24,6 +31,15 @@ export function addOrder(parms) {
     params: parms
   })
 }
+
+export function addNotice(parms) {
+  return request({
+    url: '/api/notice/insert',
+    method: 'post',
+    params: parms
+  })
+}
+
 
 export function removeOrder(parms = {}) {
   return request({
