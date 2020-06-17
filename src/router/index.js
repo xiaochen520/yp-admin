@@ -77,6 +77,7 @@ export const constantRoutes = [
   {
     path: '/notice',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'list',

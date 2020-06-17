@@ -17,6 +17,15 @@
         <el-input style="width: 200px" v-model="form.top_month"></el-input>
       </el-form-item>
 
+      <el-form-item label="找店手机显示金额(元)" prop="zd_display">
+        <el-input style="width: 200px" v-model="form.zd_display"></el-input>
+      </el-form-item>
+      <el-form-item label="刷新金额(元)" prop="refresh">
+        <el-input style="width: 200px" v-model="form.refresh"></el-input>
+      </el-form-item>
+      <el-form-item label="公告内容(元)" prop="notice">
+        <el-input style="width: 200px" v-model="form.notice"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" :loading="saveLoad" @click="onSubmit">保存</el-button>
       </el-form-item>
@@ -46,7 +55,10 @@
           'business_one': 0,
           'top_day': 0,
           'top_week': 0,
-          'top_month': 0
+          'top_month': 0,
+          zd_display: 0,
+          refresh: 0,
+          notice: ""
         }
       };
     },
