@@ -35,6 +35,11 @@
       </el-table-column>
       <el-table-column align="center" prop="update_time" label="更新时间">
       </el-table-column>
+      <el-table-column align="center" label="是都置顶">
+        <template slot-scope="scope">
+          {{scope.row.is_top == 0 ? '否' : '是'}}
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button @click="goEdit(scope.row)" type="text">编辑</el-button>
@@ -109,7 +114,8 @@
           'mobile': row.mobile,
           'content': row.content,
           'photos': row.photos,
-          'type': row.type
+          'type': row.type,
+          is_top: row.is_top
         };
         this.$router.push({ path: "/add", query: parms });
       },

@@ -9,6 +9,17 @@ export const constantRoutes = [
     component: () => import('@/views/login/index')
   },
   {
+    path: '/order',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/order/index'),
+        meta: { title: '订单列表', icon: 'iconfont iconorder'},
+      }
+    ]
+  },
+  {
     path: '/shop',
     component: Layout,
     children: [
@@ -94,6 +105,17 @@ export const constantRoutes = [
         path: 'list',
         component: () => import('@/views/carousel/index'),
         meta: { title: '轮播图管理', icon: 'iconfont iconlunbotu1-copy'},
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户列表', icon: 'iconfont iconlunbotu1-copy'},
       }
     ]
   },

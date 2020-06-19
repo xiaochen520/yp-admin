@@ -206,3 +206,19 @@ export function removeCarousel(params) {
     params: params
   })
 }
+
+export function getDd(params) {
+  return request({
+    url: `/api/orders/get`,
+    method: 'get',
+    params: params
+  })
+}
+
+export function user(params) {
+  return request({
+    url: `/api/auth/get`,
+    method: 'get',
+    params: params
+  })
+}
